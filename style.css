@@ -1,0 +1,126 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #2ec4b6, #ffffff);
+  margin: 0;
+  color: #333;
+}
+
+.center {
+  display: flex;
+  flex-direction: column; /* Menyusun konten ke bawah */
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* --- Style Header (Logo & Hadist) --- */
+.header-container {
+  text-align: center;
+  margin-bottom: 25px;
+  color: white;
+  width: 100%;
+  max-width: 400px;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.logo-img {
+  width: 60px; /* Sesuaikan ukuran logo Anda */
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.pondok-title {
+  font-size: 1.6rem;
+  margin: 0;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.hadist-wrapper {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 15px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+.hadist-text {
+  font-size: 0.9rem;
+  font-style: italic;
+  margin: 0 0 5px 0;
+  line-height: 1.5;
+}
+
+.hadist-ref {
+  font-size: 0.75rem;
+  display: block;
+  font-weight: bold;
+}
+
+/* --- Style Card Login --- */
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.card h2 {
+  color: #1b9aaa;
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box; /* Agar padding tidak merusak lebar */
+  font-size: 0.9rem;
+}
+
+.btn {
+  width: 100%;
+  background: #2ec4b6;
+  color: white;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #1b9aaa;
+}
+
+/* Responsif untuk HP Kecil */
+@media (max-width: 480px) {
+  .pondok-title {
+    font-size: 1.3rem;
+  }
+  .card {
+    padding: 20px;
+  }
+  .card h2 {
+    font-size: 1.1rem;
+  }
+}
