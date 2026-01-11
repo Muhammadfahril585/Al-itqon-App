@@ -5,7 +5,7 @@ const path = require("path");
 const app = express();
 
 // ⚠️ PENTING: Pterodactyl WAJIB pakai PORT dari environment
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 // ===== middleware =====
 app.use(express.urlencoded({ extended: true }));
@@ -52,6 +52,6 @@ app.get("/ping", (req, res) => {
 });
 
 // ===== start server =====
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server berjalan di port ${PORT}`);
+app.listen(PORT, () => {
+  console.log("Server jalan di port", PORT);
 });
