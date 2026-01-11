@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beranda Tamu</title>
+  <link rel="stylesheet" href="/css/tamu.css" />
+</head>
+<body>
+
+  <main id="tab-beranda" class="tab-content">
+    <section class="waktu-card">
+      <div class="waktu-header">
+        <div>
+          <p class="lokasi" id="user-location">Mencari Lokasi...</p>
+          <p class="hari" id="current-date">--</p>
+          <p class="hijriah" id="hijri-date">--</p>
+        </div>
+        <div class="cuaca">☀️</div>
+      </div>
+
+      <h1 class="jam" id="live-clock">00:00</h1>
+      <p class="info" id="next-prayer-info">Menghitung...</p>
+
+      <div class="shalat-list">
+        <div id="sholat-fajr">
+          <span class="icon">☀️</span>
+          <span>Subuh</span>
+          <b class="time">--:--</b>
+        </div>
+        <div id="sholat-dhuhr">
+          <span class="icon">☀️</span>
+          <span>Dzuhur</span>
+          <b class="time">--:--</b>
+        </div>
+        <div id="sholat-asr">
+          <span class="icon">⛅</span>
+          <span>Ashar</span>
+          <b class="time">--:--</b>
+        </div>
+        <div id="sholat-maghrib">
+          <span class="icon">🌅</span>
+          <span>Maghrib</span>
+          <b class="time">--:--</b>
+        </div>
+        <div id="sholat-isha">
+          <span class="icon">🌙</span>
+          <span>Isya</span>
+          <b class="time">--:--</b>
+        </div>
+      </div>
+    </section>
+
+    <section class="video">
+      ▶️ Video Dokumentasi 
+    </section>
+
+    <section class="menu-grid">
+      <div class="menu-item">🙏<p>Dzikir & Doa</p></div>
+      <div class="menu-item">📖<p>Al-Qur'an</p></div>
+      <div class="menu-item">🛏️<p>Kamar Santri</p></div>
+      <div class="menu-item">📖👥<p>Halaqah Qur'an</p></div>
+      <div class="menu-item">📋<p>Santri Ujian</p></div>
+      <div class="menu-item">📊<p>Struktur Organisasi</p></div>
+      <div class="menu-item">🏢<p>Profil Pondok</p></div>
+      <div class="menu-item">📜<p>Visi & Misi</p></div>
+      <div class="menu-item">☎️<p>Hubungi Admin</p></div>
+      <div class="menu-item">👨‍🎓<p>Santri Pulang</p></div>
+      <div class="menu-item">🤒<p>Santri Sakit</p></div>
+      <div class="menu-item">👳<p>Profil Pembina</p></div>
+    </section>
+  </main>
+
+  <main id="tab-jadwal" class="tab-content" style="display: none;">
+    <section class="jadwal-container">
+      <div class="jadwal-header">
+        <h2 id="judul-bulanan">Jadwal Shalat Bulan Rajab 1447 H</h2>
+        <div class="month-selector">
+          <button onclick="changeMonth(-1)">&lt;</button>
+          <div class="month-info">
+            <b id="hijri-month-name">Rajab 1447H</b><br>
+            <span>Bulan Hijriah</span>
+          </div>
+          <button onclick="changeMonth(1)">&gt;</button>
+        </div>
+        
+        <div class="export-tools">
+          <span>Export:</span>
+          <button class="btn-icon">📄</button>
+          <button class="btn-icon">🖼️</button>
+        </div>
+      </div>
+
+      <div class="location-box">
+        <div class="loc-detail">
+          <span class="loc-icon">📍</span>
+          <div>
+            <b id="bulk-location-name">Unknown City, Indonesia</b><br>
+            <small id="bulk-coords">Asia/Makassar • -5.1738°, 119.5373°</small>
+          </div>
+        </div>
+        <div class="params-grid">
+          <div class="param-item">Subuh: <b>17.5°</b></div>
+          <div class="param-item">Isya: <b>18°</b></div>
+          <div class="param-item">Mazhab: <b>Syafi'i</b></div>
+          <div class="param-item">Ihtiyat: <b>Dz +4, Mg +2</b></div>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="jadwal-table">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Subuh</th>
+              <th>Duha</th>
+              <th>Dzuhur</th>
+              <th>Ashar</th>
+              <th>Maghrib</th>
+              <th>Isya</th>
+            </tr>
+          </thead>
+          <tbody id="bulk-jadwal-body">
+            </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <nav class="navbar">
+    <div class="nav active" id="nav-beranda" onclick="switchTab('beranda')">
+      🏠<span>Beranda</span>
+    </div>
+    <div class="nav" id="nav-jadwal" onclick="switchTab('jadwal')">
+      🕌<span>Shalat</span>
+    </div>
+    <div class="nav">
+      📅<span>Kajian</span>
+    </div>
+    <div class="nav">
+      ☰<span>Lainnya</span>
+    </div>
+  </nav>
+
+  <script src="/js/WahdahCalculatorRaw.js"></script>
+  <script src="/js/wahdahAdabter.js"></script>
+  <script src="/js/tamu.js"></script>
+</body>
+</html>

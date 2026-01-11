@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Digitren</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="center">
+
+  <div class="header-container">
+    <div class="logo-wrapper">
+      <img src="/img/logo.png" alt="Logo Pondok" class="logo-img">
+      <h1 class="pondok-title">PPTQ AL-ITQON</h1>
+    </div>
+    
+    <div class="hadist-wrapper">
+      <p class="hadist-text">"Sebaik-baik kalian adalah orang yang belajar Al-Qur'an dan mengajarkannya."</p>
+      <small class="hadist-ref">(HR. Bukhari)</small>
+    </div>
+  </div>
+
+  <form class="card" method="POST" action="/login">
+    <h2>Assalamualaikum, Selamat Datang Di PPTQ AL-ITQON</h2>
+
+    <input type="text" name="email" placeholder="Email / No. Telepon" required>
+
+    <select name="role" id="role" onchange="toggleId()" required>
+      <option value="">Pilih Peran</option>
+      <option value="tamu">Tamu</option>
+      <option value="pembina">Pembina</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <input type="text" name="id" id="idField" placeholder="Masukkan ID" style="display:none">
+
+    <button type="submit" class="btn">Masuk</button>
+  </form>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
