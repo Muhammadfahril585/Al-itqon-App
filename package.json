@@ -1,0 +1,14 @@
+{
+  "name": "digitren-node",
+  "version": "1.0.0",
+  "description": "Digitren versi Node.js (MVP)",
+  "main": "node -r dotenv/config server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^4.19.2",
+    "pm2": "^6.0.14"
+  }
+}
