@@ -185,9 +185,3 @@ function formatShortTime(date) {
 initLocation();
 setInterval(updateClock, 1000);
 updateClock();
-<script>
-navigator.geolocation.getCurrentPosition(
-  pos => alert("Izin lokasi diterima"),
-  err => alert("Izin lokasi ditolak atau error: " + err.message)
-);
-</script>
