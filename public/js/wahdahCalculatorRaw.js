@@ -1,6 +1,7 @@
 "use strict";
 
-/* Wahdah Calculator – RAW PORT FROM WEBPACK CHUNK 9686
+/**
+ * Wahdah Calculator – RAW PORT FROM WEBPACK CHUNK 9686
  * DO NOT MODIFY LOGIC / FORMULA
  * Only adapted to Node.js environment
  */
@@ -258,7 +259,8 @@ static ceilMinute(t) {
 
         while (t < 0) t += 24;
         while (t >= 24) t -= 24;
-     const h = Math.floor(t);
+
+        const h = Math.floor(t);
         const mFloat = (t - h) * 60;
         const m = Math.floor(mFloat);
         const s = Math.round((mFloat - m) * 60);
