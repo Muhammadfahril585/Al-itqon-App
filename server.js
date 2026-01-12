@@ -1,6 +1,7 @@
 const express = require("express");
 require('dotenv').config();
 const path = require("path");
+const startTime = Date.now(); 
 
 const app = express();
 
@@ -48,7 +49,16 @@ app.get("/pembina", (req, res) => {
 
 // ===== health check (debug) =====
 app.get("/ping", (req, res) => {
-  res.send("OK");
+  const diff = Date.now() - startTime;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+  res.json({
+    status: "Al-Itqon App Sedang Aktif",
+    uptime: `${days} hari, ${hours} jam, ${minutes} menit`,
+    timestamp: new Date().toLocaleString("id-ID", { timeZone: "Asia/Makassar" })
+  });
 });
 
 // ===== start server =====
