@@ -108,8 +108,12 @@ function displayJadwal() {
 // --- 4. Loop Jam & Tanggal ---
 function updateClock() {
     const now = new Date();
-    document.getElementById('live-clock').innerText = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    
+    document.getElementById('live-clock').innerText = now.toLocaleTimeString('id-ID', { 
+    hour: '2-digit', 
+    minute: '2-digit', 
+    second: '2-digit',
+    timeZone: 'Asia/Makassar' // Tambahkan ini
+});
     const optMasehi = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     document.getElementById('current-date').innerText = now.toLocaleDateString('id-ID', optMasehi);
     document.getElementById('hijri-date').innerText = getHijriDate(now);
