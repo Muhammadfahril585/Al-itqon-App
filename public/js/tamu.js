@@ -213,6 +213,11 @@ function formatShortTime(date) {
 }
 
 // Inisialisasi awal
-initLocation();
-setInterval(updateClock, 1000);
-updateClock();
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Jalankan jam dulu agar UI tidak statis
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // 2. Baru jalankan lokasi
+    initLocation();
+});
