@@ -1,28 +1,31 @@
 <section class="jadwal-container">
     <div class="jadwal-header">
-        <h2>Jadwal Shalat Bulan Rajab 1447 H</h2>
+        <h2 id="bulk-month-title">Jadwal Shalat Bulan ...</h2>
         <div class="month-selector">
-            <button class="btn-prev">&lt;</button>
+            <button class="btn-prev" onclick="changeMonth(-1)">&lt;</button>
             <div class="month-info">
-                <b>Rajab 1447H</b><br>
+                <b id="hijri-month-name">...</b><br>
                 <span>Bulan Hijriah</span>
             </div>
-            <button class="btn-next">&gt;</button>
+            <button class="btn-next" onclick="changeMonth(1)">&gt;</button>
         </div>
         
         <div class="export-tools">
             <span>Export:</span>
-            <button class="btn-icon">📄</button> <button class="btn-icon">🖼️</button> </div>
+            <button class="btn-icon">📄</button>
+            <button class="btn-icon">🖼️</button>
+        </div>
     </div>
 
     <div class="location-box">
         <div class="loc-detail">
             <span class="loc-icon">📍</span>
             <div>
-                <b>Unknown City, Indonesia</b><br>
-                <small>Asia/Makassar • -5.1738°, 119.5373°</small>
+                <b id="bulk-location-name">Memuat Lokasi...</b><br>
+                <small id="bulk-coords">--° , --°</small>
             </div>
         </div>
+        
         <div class="params-grid">
             <div class="param-item">Subuh: <b>17.5°</b></div>
             <div class="param-item">Isya: <b>18°</b></div>
@@ -54,7 +57,8 @@
                     <td>18:24</td>
                     <td>19:39</td>
                 </tr>
-                </tbody>
+                <!-- Data lainnya akan dimasukkan di sini -->
+            </tbody>
         </table>
     </div>
 </section>
