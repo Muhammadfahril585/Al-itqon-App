@@ -1,7 +1,6 @@
 "use strict";
 
-/
- * Wahdah Calculator – RAW PORT FROM WEBPACK CHUNK 9686
+/* Wahdah Calculator – RAW PORT FROM WEBPACK CHUNK 9686
  * DO NOT MODIFY LOGIC / FORMULA
  * Only adapted to Node.js environment
  */
