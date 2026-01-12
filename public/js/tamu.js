@@ -32,34 +32,65 @@ function getHijriDate(date) {
 
 // --- 2. Fungsi Deteksi Lokasi ---
 async function initLocation() {
-    // Set awal dengan default Gowa
+    // Default dulu (biar UI langsung tampil)
     jadwalSholat = window.calculatePrayerTimes(lastLat, lastLon);
     displayJadwal();
-    document.getElementById('user-location').innerText = "Pattallassang, Gowa (Default)";
+    document.getElementById('user-location').innerText =
+        "Pattallassang, Gowa (Default)";
+    document.getElementById('bulk-location-name').innerText =
+        "Pattallassang, Gowa";
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async (position) => {
+    // LANGSUNG minta GPS saat halaman dibuka
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(
+        async (position) => {
             lastLat = position.coords.latitude;
             lastLon = position.coords.longitude;
 
-            jadwalSholat = window.calculatePrayerTimes(lastLat, lastLon);
+            jadwalSholat =
+                window.calculatePrayerTimes(lastLat, lastLon);
             displayJadwal();
 
             try {
-                const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lastLat}&lon=${lastLon}`);
+                const res = await fetch(
+                    `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lastLat}&lon=${lastLon}`
+                );
                 const data = await res.json();
-                const addr = data.address;
-                const daerah = addr.village || addr.suburb || addr.city_district || "Gowa";
-                const regensi = addr.regency || addr.city || "Sulawesi Selatan";
-                document.getElementById('user-location').innerText = `${daerah}, ${regensi}`;
-                document.getElementById('bulk-location-name').innerText = `${daerah}, ${regensi}`;
-            } catch (e) {
-                document.getElementById('user-location').innerText = "Lokasi Terdeteksi";
+                const addr = data.address || {};
+
+                const daerah =
+                    addr.village ||
+                    addr.suburb ||
+                    addr.city_district ||
+                    addr.town ||
+                    "Lokasi Anda";
+
+                const regensi =
+                    addr.regency ||
+                    addr.city ||
+                    addr.state ||
+                    "Indonesia";
+
+                document.getElementById('user-location').innerText =
+                    `${daerah}, ${regensi}`;
+                document.getElementById('bulk-location-name').innerText =
+                    `${daerah}, ${regensi}`;
+
+            } catch {
+                document.getElementById('user-location').innerText =
+                    "Lokasi Terdeteksi";
             }
-        }, () => {
-            console.log("Akses lokasi ditolak, menggunakan default Gowa.");
-        });
-    }
+        },
+        () => {
+            console.log("Lokasi ditolak, pakai default Gowa");
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        }
+    );
 }
 
 // --- 3. Tampilkan Jadwal di Dashboard ---
