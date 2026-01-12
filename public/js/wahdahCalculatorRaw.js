@@ -183,39 +183,36 @@ static ceilMinute(t) {
     }
 
     static getEquationOfTime(t) {
-    const L0 =
-        (280.46646 + t * (36000.76983 + 0.0003032 * t)) *
-        this.DEGREES_TO_RADIANS;
+        const L0 =
+            (280.46646 + t * (36000.76983 + 0.0003032 * t)) *
+            this.DEGREES_TO_RADIANS;
 
-    const M =
-        (357.52911 + t * (35999.05029 - 0.0001537 * t)) *
-        this.DEGREES_TO_RADIANS;
+        const M =
+            (357.52911 + t * (35999.05029 - 0.0001537 * t)) *
+            this.DEGREES_TO_RADIANS;
 
-    const e = 0.016708634 - t * (0.000042037 + 0.0000001267 * t);
+        const e = 0.016708634 - t * (0.000042037 + 0.0000001267 * t);
 
-    // Perbaikan: Menggunakan Math.pow untuk pangkat 2
-    const y = Math.pow(
-        Math.tan(
-            ((23.4392911 -
-                0.0130042 * t -
-                0.00000016 * t * t +
-                0.000000504 * t * t * t) /
-                2) *
-                this.DEGREES_TO_RADIANS
-        ), 2
-    );
+        const y =
+            Math.tan(
+                ((23.4392911 -
+                    0.0130042 * t -
+                    0.00000016 * t * t +
+                    0.000000504 * t * t * t) /
+                    2) *
+                    this.DEGREES_TO_RADIANS
+            ) ** 2;
 
-    return (
-        (y * Math.sin(2 * L0) -
-            2 * e * Math.sin(M) +
-            4 * e * y * Math.sin(M) * Math.cos(2 * L0) -
-            0.5 * y * y * Math.sin(4 * L0) -
-            1.25 * e * e * Math.sin(2 * M)) *
-        this.RADIANS_TO_DEGREES *
-        4
-    );
-}
-
+        return (
+            (y * Math.sin(2 * L0) -
+                2 * e * Math.sin(M) +
+                4 * e * y * Math.sin(M) * Math.cos(2 * L0) -
+                0.5 * y * y * Math.sin(4 * L0) -
+                1.25 * e * e * Math.sin(2 * M)) *
+            this.RADIANS_TO_DEGREES *
+            4
+        );
+    }
 
     static calculatePrayerTime(lat, dec, angle, transit, isAfterNoon) {
         const cosH =
