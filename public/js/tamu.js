@@ -93,18 +93,28 @@ function formatShortTime(date) {
 // 3. LOKASI & DASHBOARD
 // ===============================
 async function initLocation() {
+  // 1. Set tampilan awal dengan koordinat default (Gowa)
+  updateCoordDisplay(lastLat, lastLon); 
   jadwalSholat = window.calculatePrayerTimes(lastLat, lastLon);
   displayJadwal();
 
   if (!navigator.geolocation) return;
 
   navigator.geolocation.getCurrentPosition(async (pos) => {
+    // 2. Update variabel global dengan koordinat asli user
     lastLat = pos.coords.latitude;
     lastLon = pos.coords.longitude;
 
+    // 3. Update tampilan teks koordinat secara real-time
+    updateCoordDisplay(lastLat, lastLon);
+
+    // 4. Hitung ulang jadwal berdasarkan lokasi baru
     jadwalSholat = window.calculatePrayerTimes(lastLat, lastLon);
     displayJadwal();
-
+    const tabJadwal = document.getElementById('tab-jadwal');
+    if (tabJadwal && tabJadwal.style.display !== 'none') {
+        renderMonthlyJadwal();
+    }
     try {
       const res = await fetch(
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lastLat}&lon=${lastLon}`
@@ -124,6 +134,15 @@ async function initLocation() {
     }
   });
 }
+
+// Fungsi pembantu agar kode lebih rapi dan tidak berulang
+function updateCoordDisplay(lat, lon) {
+  const coordEl = document.getElementById('bulk-coords');
+  if (coordEl) {
+    coordEl.innerText = `Asia/Makassar • ${lat.toFixed(4)}°, ${lon.toFixed(4)}°`;
+  }
+}
+
 
 function displayJadwal() {
   if (!jadwalSholat) return;
@@ -268,17 +287,98 @@ function renderMonthlyJadwal() {
     `;
   }
 }
+function buildExportContent() {
+  const exportBox = document.getElementById("export-container-full");
+  if (!exportBox) return;
 
+  exportBox.innerHTML = "";
 
+  // ===== Judul =====
+  const title = document.createElement("h2");
+  title.innerText = document.getElementById("judul-bulanan")?.innerText || "Jadwal Shalat";
+  title.style.textAlign = "center";
+  title.style.marginBottom = "12px";
+  title.style.color = "#228B22";
+
+  // ===== Lokasi =====
+  const loc = document.createElement("div");
+  loc.style.textAlign = "center";
+  loc.style.fontSize = "12px";
+  loc.style.color = "#555";
+  loc.style.marginBottom = "12px";
+  loc.innerText =
+    `${document.getElementById("bulk-location-name")?.innerText || ""} · ` +
+    `${document.getElementById("bulk-coords")?.innerText || ""}`;
+
+  // ===== Clone Tabel =====
+  const table = document.querySelector(".jadwal-table");
+  if (!table) return;
+
+  const clonedTable = table.cloneNode(true);
+  clonedTable.style.width = "max-content";
+  clonedTable.style.minWidth = "900px";
+  clonedTable.style.borderCollapse = "collapse";
+
+  exportBox.appendChild(title);
+  exportBox.appendChild(loc);
+  exportBox.appendChild(clonedTable);
+}
+async function exportImage() {
+  buildExportContent();
+
+  const target = document.getElementById("export-container-full");
+  if (!target) return;
+
+  await new Promise(r => setTimeout(r, 150));
+
+  const canvas = await html2canvas(target, {
+    scale: 2.5,
+    backgroundColor: "#ffffff",
+    width: target.scrollWidth,
+    height: target.scrollHeight,
+    scrollX: 0,
+    scrollY: 0
+  });
+
+  const link = document.createElement("a");
+  link.download = "jadwal-shalat.png";
+  link.href = canvas.toDataURL("image/png", 0.95);
+  link.click();
+}
+async function exportPDF() {
+  buildExportContent();
+
+  const target = document.getElementById("export-container-full");
+  if (!target) return;
+
+  await new Promise(r => setTimeout(r, 150));
+
+  const canvas = await html2canvas(target, {
+    scale: 2.5,
+    backgroundColor: "#ffffff",
+    width: target.scrollWidth,
+    height: target.scrollHeight
+  });
+
+  const imgData = canvas.toDataURL("image/png");
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF("p", "mm", "a4");
+
+  const imgWidth = 190;
+  const imgHeight = canvas.height * imgWidth / canvas.width;
+
+  let y = 15;
+  if (imgHeight > 260) {
+    pdf.addImage(imgData, "PNG", 10, y, imgWidth, 260);
+  } else {
+    pdf.addImage(imgData, "PNG", 10, y, imgWidth, imgHeight);
+  }
+
+  pdf.save("jadwal-shalat.pdf");
+}
 // ===============================
 // 6. INIT
 // ===============================
 initLocation();
-
-const coordEl = document.getElementById('bulk-coords');
-if (coordEl) {
-  coordEl.innerText = `${lastLat.toFixed(4)}°, ${lastLon.toFixed(4)}°`;
-}
-
 setInterval(updateClock, 1000);
 updateClock();
