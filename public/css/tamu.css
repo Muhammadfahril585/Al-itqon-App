@@ -139,8 +139,35 @@ body {
   width: 30px; height: 30px; border-radius: 50%;
 }
 
-.export-tools { margin: 10px 0; font-size: 12px; }
-.btn-icon { background: #eee; border: none; padding: 5px 10px; border-radius: 5px; margin-left: 5px; }
+.export-tools {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.btn-download {
+  background-color: #2d7a32; /* Warna hijau seperti di gambar */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-download:hover {
+  background-color: #1e5222; /* Warna sedikit lebih gelap saat kursor menempel */
+}
+
+/* Ukuran ikon di dalam tombol */
+.material-symbols-outlined {
+  font-size: 20px;
+}
 
 .location-box {
   background: #e8f5e9; border-radius: 12px; padding: 15px;
