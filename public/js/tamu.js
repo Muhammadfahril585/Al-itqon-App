@@ -354,24 +354,26 @@ async function exportPDF() {
   await new Promise(r => setTimeout(r, 150));
 
   const canvas = await html2canvas(target, {
-    scale: 2.5,
+    scale: 1.8,
     backgroundColor: "#ffffff",
     width: target.scrollWidth,
     height: target.scrollHeight
   });
 
-  const imgData = canvas.toDataURL("image/png");
+  const imgData = canvas.toDataURL("image/jpeg", 0.82);
+
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF("p", "mm", "a4");
 
+  const pageWidth = 210;
   const imgWidth = 190;
   const imgHeight = canvas.height * imgWidth / canvas.width;
 
   let y = 15;
   if (imgHeight > 260) {
-    pdf.addImage(imgData, "PNG", 10, y, imgWidth, 260);
+    pdf.addImage(imgData, "JPEG", 10, y, imgWidth, 260);
   } else {
-    pdf.addImage(imgData, "PNG", 10, y, imgWidth, imgHeight);
+    pdf.addImage(imgData, "JPEG", 10, y, imgWidth, imgHeight);
   }
 
   pdf.save("jadwal-shalat.pdf");
