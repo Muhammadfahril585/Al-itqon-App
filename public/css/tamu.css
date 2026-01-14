@@ -217,3 +217,113 @@ body {
 .jadwal-table th { background: #2e7d32; color: white; padding: 12px 5px; }
 .jadwal-table td { padding: 10px 5px; border-bottom: 1px solid #eee; text-align: center; }
 .jadwal-table tr.today { background: #fff9c4; font-weight: bold; border: 1px solid #fbc02d; }
+/* ===== AL-QURAN ===== */
+
+.surah-list {
+  padding: 16px;
+}
+
+.surah-item {
+  background: white;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  cursor: pointer;
+}
+
+.surah-left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.surah-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #0f766e;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.surah-name {
+  font-weight: 600;
+}
+
+.surah-meta {
+  font-size: 12px;
+  color: #777;
+}
+
+.surah-arab {
+  font-size: 20px;
+  font-family: 'Scheherazade New', serif;
+}
+
+/* AYAT */
+.ayat-container {
+  padding: 16px;
+}
+
+.ayat-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.ayat-arab {
+  font-size: 28px;
+  text-align: right;
+  line-height: 1.9;
+  margin-bottom: 10px;
+  font-family: 'Scheherazade New', serif;
+}
+
+.ayat-terjemah {
+  font-size: 14px;
+  color: #333;
+}
+
+.ayat-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.ayat-actions button {
+  background: #0f766e;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+.ayat-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 15px;
+}
+
+.ayat-header button {
+  background: #f0f0f0;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
