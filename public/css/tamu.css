@@ -9,12 +9,43 @@ body {
   background: #f4f6f8;
   padding-bottom: 90px;
 }
+/* HEADER PONDOK */
+.pondok-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px 6px;
+  background: #0f766e;
+  color: white;
+}
 
+.pondok-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: white;
+  padding: 4px;
+}
+
+.pondok-info {
+  line-height: 1.2;
+}
+
+.pondok-nama {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.pondok-tagline {
+  font-size: 11px;
+  opacity: 0.85;
+}
 /* WAKTU SHALAT CARD */
 .waktu-card {
   background: linear-gradient(135deg, #0f766e, #0d9488);
   color: white;
-  margin: 16px;
+  margin: 10px;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 8px 20px rgba(15, 118, 110, 0.3);
