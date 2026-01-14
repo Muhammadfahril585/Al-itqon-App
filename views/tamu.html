@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Beranda Tamu</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/tamu.css" />
 </head>
 <body>
@@ -139,7 +140,24 @@
       </div>
     </section>
   </main>
+<main id="tab-quran" class="tab-content" style="display:none">
 
+  <!-- LIST SURAH -->
+  <section class="surah-list" id="surah-list">
+    <!-- diisi via JS -->
+  </section>
+
+  <!-- DETAIL AYAT -->
+  <section class="ayat-container" id="ayat-container" style="display:none">
+    <div class="ayat-header">
+      <button onclick="backToSurah()">←</button>
+      <h3 id="judul-surah">Al-Fatihah</h3>
+    </div>
+
+    <div id="ayat-list"></div>
+  </section>
+
+</main>
   <nav class="navbar">
     <div class="nav active" id="nav-beranda" onclick="switchTab('beranda')">
       🏠<span>Beranda</span>
@@ -147,8 +165,8 @@
     <div class="nav" id="nav-jadwal" onclick="switchTab('jadwal')">
       🕌<span>Shalat</span>
     </div>
-    <div class="nav">
-      📅<span>Kajian</span>
+    <div class="nav" id="nav-quran" onclick="switchTab('quran')">
+      📅<span>Qur'an</span>
     </div>
     <div class="nav">
       ☰<span>Lainnya</span>
