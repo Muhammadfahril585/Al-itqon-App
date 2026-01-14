@@ -206,7 +206,9 @@ function updateClock() {
 // 5. TAB & JADWAL BULANAN
 // ===============================
 function switchTab(tabName) {
+  // Sembunyikan semua konten tab
   document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+  // Hapus class active di semua nav
   document.querySelectorAll('.nav').forEach(n => n.classList.remove('active'));
 
   const tab = document.getElementById(`tab-${tabName}`);
@@ -215,9 +217,16 @@ function switchTab(tabName) {
   if (tab) tab.style.display = 'block';
   if (nav) nav.classList.add('active');
 
+  // Logika khusus per tab
   if (tabName === 'jadwal') {
     currentHijriMonthOffset = 0;
     renderMonthlyJadwal();
+  } 
+  else if (tabName === 'quran') {
+    // Pastikan list surah muncul kembali jika sebelumnya sedang buka detail ayat
+    document.getElementById("surah-list").style.display = "block";
+    document.getElementById("ayat-container").style.display = "none";
+    loadSurahList();
   }
 }
 
@@ -384,3 +393,86 @@ async function exportPDF() {
 initLocation();
 setInterval(updateClock, 1000);
 updateClock();
+// ================================
+// AL-QUR'AN EQURAN.ID (NO API KEY)
+// ================================
+
+async function loadSurahList() {
+  const list = document.getElementById("surah-list");
+  
+  // Jangan ambil data lagi jika sudah ada isinya (hemat kuota & cepat)
+  if (list.innerHTML !== "") return; 
+
+  list.innerHTML = "<p style='padding:20px; text-align:center;'>Memuat Al-Qur'an...</p>";
+
+  try {
+    const res = await fetch("https://equran.id/api/v2/surat");
+    const json = await res.json();
+    const data = json.data;
+
+    list.innerHTML = ""; // Bersihkan pesan loading
+
+    data.forEach(surah => {
+      list.innerHTML += `
+        <div class="surah-item" onclick="openSurah(${surah.nomor})" style="cursor:pointer; border-bottom:1px solid #eee; padding:10px; display:flex; justify-content:space-between; align-items:center;">
+          <div class="surah-left" style="display:flex; gap:15px; align-items:center;">
+            <div class="surah-number" style="font-weight:bold; color:#228B22;">${surah.nomor}</div>
+            <div>
+              <div class="surah-name" style="font-weight:bold;">${surah.namaLatin}</div>
+              <div class="surah-meta" style="font-size:0.8em; color:#666;">
+                ${surah.tempatTurun} • ${surah.jumlahAyat} Ayat
+              </div>
+            </div>
+          </div>
+          <div class="surah-arab" style="font-size:1.4em; font-family: 'Amiri', serif;">${surah.nama}</div>
+        </div>
+      `;
+    });
+  } catch (err) {
+    list.innerHTML = "<p style='padding:20px; color:red;'>Gagal memuat data. Periksa koneksi internet Anda.</p>";
+  }
+}
+
+async function openSurah(nomor) {
+  document.getElementById("surah-list").style.display = "none";
+  document.getElementById("ayat-container").style.display = "block";
+
+  const res = await fetch(`https://equran.id/api/v2/surat/${nomor}`);
+  const json = await res.json();
+  const surah = json.data;
+
+  document.getElementById("judul-surah").innerText =
+    `${surah.namaLatin} • ${surah.arti}`;
+
+  const ayatList = document.getElementById("ayat-list");
+  ayatList.innerHTML = "";
+
+  surah.ayat.forEach(a => {
+    ayatList.innerHTML += `
+      <div class="ayat-card">
+        <div class="ayat-arab">${a.teksArab}</div>
+        <div class="ayat-terjemah">${a.teksIndonesia}</div>
+
+        <div class="ayat-actions">
+          <button onclick="playAudio('${a.audio['01']}')">▶️ Audio</button>
+          <button onclick="copyAyat('${a.teksArab}')">📋 Salin</button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function backToSurah() {
+  document.getElementById("ayat-container").style.display = "none";
+  document.getElementById("surah-list").style.display = "block";
+}
+
+function playAudio(url) {
+  const audio = new Audio(url);
+  audio.play();
+}
+
+function copyAyat(text) {
+  navigator.clipboard.writeText(text)
+    .then(() => alert("Ayat berhasil disalin"));
+}
