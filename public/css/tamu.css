@@ -130,6 +130,159 @@ body {
 }
 
 .menu-item p { font-size: 11px; margin-top: 8px; color: #444; font-weight: 500; }
+/* ============================= */
+/* DZIKIR & DOA MAIN STYLES      */
+/* ============================= */
+.dzikir-container {
+  padding: 16px;
+  background: #f4f6f8;
+  min-height: 100vh;
+}
+
+.dzikir-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.dzikir-header h3 {
+  color: #0f766e;
+  font-size: 20px;
+}
+
+.btn-back {
+  background: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  color: #0f766e;
+  font-weight: bold;
+}
+
+/* GRID & CARDS */
+.dzikir-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dzikir-card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.dzikir-card:active {
+  transform: scale(0.97);
+}
+
+.dzikir-icon {
+  font-size: 32px;
+  background: #f0fdfa;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.dzikir-info {
+  flex: 1;
+}
+
+.dzikir-info h4 {
+  color: #333;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.dzikir-info p {
+  color: #777;
+  font-size: 12px;
+}
+
+.arrow {
+  color: #0f766e;
+  font-weight: bold;
+}
+
+/* ============================= */
+/* DETAIL CONTENT & ARABIC TEXT  */
+/* ============================= */
+.dzikir-detail-content {
+  display: block !important;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-top: 10px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Gabungan Pengaturan Teks Arab */
+.dzikir-detail-content .font-arabic,
+.dzikir-detail-content .arabic {
+  font-family: 'Scheherazade New', serif;
+  direction: rtl;
+  text-align: right;
+  display: block;
+  width: 100%;
+  margin: 20px 0;
+  padding-right: 10px;
+  line-height: 2.2;
+  word-wrap: break-word;
+  unicode-bidi: bidi-override;
+}
+
+/* Paksa span arab agar tidak berantakan */
+.font-arabic span {
+  display: inline;
+  white-space: nowrap;
+}
+
+/* ============================= */
+/* EXPLANATION / KANDUNGAN       */
+/* ============================= */
+#explanation-section {
+  display: block;
+  direction: ltr; /* Kembali ke kiri untuk bahasa Indonesia */
+  text-align: left;
+  overflow-wrap: break-word;
+  line-height: 1.6;
+}
+
+#explanation-section h3,
+#explanation-section h4 {
+  text-align: left;
+  direction: ltr;
+  margin-bottom: 10px;
+}
+
+#explanation-section p {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+/* Memaksa span arab di dalam paragraf penjelasan agar tetap menyambung ke samping */
+#explanation .font-arabic, 
+#explanation span[lang="ar"] {
+  display: inline !important; 
+  white-space: nowrap; /* Mencegah satu kata terpotong */
+  line-height: normal;
+  padding: 0 2px;      /* Memberi sedikit jarak antar kata */
+}
+
+/* Memastikan teks Indonesia di sekitarnya tetap dari kiri ke kanan */
+#explanation {
+  direction: ltr !important;
+  text-align: left !important;
+}
 
 /* NAVBAR BAWAH */
 .navbar {
