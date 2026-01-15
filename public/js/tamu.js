@@ -223,10 +223,13 @@ function switchTab(tabName) {
     renderMonthlyJadwal();
   } 
   else if (tabName === 'quran') {
-    // Pastikan list surah muncul kembali jika sebelumnya sedang buka detail ayat
+    console.log("Mencoba memuat Qur'an...");
     document.getElementById("surah-list").style.display = "block";
     document.getElementById("ayat-container").style.display = "none";
     loadSurahList();
+  }
+  else if (tabName === 'dzikir') {
+    window.scrollTo(0, 0);
   }
 }
 
@@ -393,73 +396,121 @@ async function exportPDF() {
 initLocation();
 setInterval(updateClock, 1000);
 updateClock();
+
 // ================================
 // AL-QUR'AN EQURAN.ID (NO API KEY)
 // ================================
-
 async function loadSurahList() {
   const list = document.getElementById("surah-list");
-  
-  // Jangan ambil data lagi jika sudah ada isinya (hemat kuota & cepat)
-  if (list.innerHTML !== "") return; 
+  if (!list) {
+    alert("Error: Elemen surah-list tidak ditemukan!");
+    return;
+  }
 
-  list.innerHTML = "<p style='padding:20px; text-align:center;'>Memuat Al-Qur'an...</p>";
+  // Jika sudah ada data, jangan ambil lagi
+  if (list.children.length > 5) return; 
+
+  list.innerHTML = "<p style='text-align:center; padding:20px;'>Sedang mengambil data Al-Qur'an...</p>";
 
   try {
     const res = await fetch("https://equran.id/api/v2/surat");
+    
+    if (!res.ok) throw new Error("Gagal menyambung ke server API");
+    
     const json = await res.json();
     const data = json.data;
 
-    list.innerHTML = ""; // Bersihkan pesan loading
+    if (!data || data.length === 0) {
+      alert("Data Al-Qur'an kosong!");
+      return;
+    }
+
+    list.innerHTML = ""; // Bersihkan loading
 
     data.forEach(surah => {
-      list.innerHTML += `
-        <div class="surah-item" onclick="openSurah(${surah.nomor})" style="cursor:pointer; border-bottom:1px solid #eee; padding:10px; display:flex; justify-content:space-between; align-items:center;">
-          <div class="surah-left" style="display:flex; gap:15px; align-items:center;">
-            <div class="surah-number" style="font-weight:bold; color:#228B22;">${surah.nomor}</div>
+      const item = `
+        <div class="surah-item" onclick="openSurah(${surah.nomor})" style="cursor:pointer;">
+          <div class="surah-left">
+            <div class="surah-number">${surah.nomor}</div>
             <div>
-              <div class="surah-name" style="font-weight:bold;">${surah.namaLatin}</div>
-              <div class="surah-meta" style="font-size:0.8em; color:#666;">
-                ${surah.tempatTurun} • ${surah.jumlahAyat} Ayat
-              </div>
+              <div class="surah-name">${surah.namaLatin}</div>
+              <div class="surah-meta">${surah.tempatTurun} • ${surah.jumlahAyat} Ayat</div>
             </div>
           </div>
-          <div class="surah-arab" style="font-size:1.4em; font-family: 'Amiri', serif;">${surah.nama}</div>
-        </div>
-      `;
+          <div class="surah-arab" style="font-family: 'Scheherazade New', serif;">${surah.nama}</div>
+        </div>`;
+      list.insertAdjacentHTML('beforeend', item);
     });
-  } catch (err) {
-    list.innerHTML = "<p style='padding:20px; color:red;'>Gagal memuat data. Periksa koneksi internet Anda.</p>";
+
+  } catch (error) {
+    alert("Terjadi masalah: " + error.message);
+    list.innerHTML = `<p style='text-align:center; color:red; padding:20px;'>
+      Gagal memuat Al-Qur'an. <br>Pastikan internet aktif.
+    </p>`;
   }
 }
 
 async function openSurah(nomor) {
-  document.getElementById("surah-list").style.display = "none";
-  document.getElementById("ayat-container").style.display = "block";
-
-  const res = await fetch(`https://equran.id/api/v2/surat/${nomor}`);
-  const json = await res.json();
-  const surah = json.data;
-
-  document.getElementById("judul-surah").innerText =
-    `${surah.namaLatin} • ${surah.arti}`;
-
+  // 1. Tampilkan indikator loading sederhana
   const ayatList = document.getElementById("ayat-list");
-  ayatList.innerHTML = "";
+  const ayatContainer = document.getElementById("ayat-container");
+  const surahList = document.getElementById("surah-list");
 
-  surah.ayat.forEach(a => {
-    ayatList.innerHTML += `
-      <div class="ayat-card">
-        <div class="ayat-arab">${a.teksArab}</div>
-        <div class="ayat-terjemah">${a.teksIndonesia}</div>
+  if (!ayatList || !ayatContainer || !surahList) {
+    alert("Elemen HTML untuk ayat tidak ditemukan!");
+    return;
+  }
 
-        <div class="ayat-actions">
-          <button onclick="playAudio('${a.audio['01']}')">▶️ Audio</button>
-          <button onclick="copyAyat('${a.teksArab}')">📋 Salin</button>
+  // Sembunyikan list surah, tampilkan container ayat
+  surahList.style.display = "none";
+  ayatContainer.style.display = "block";
+  ayatList.innerHTML = "<p style='text-align:center; padding:20px;'>Memuat ayat...</p>";
+
+  try {
+    const res = await fetch(`https://equran.id/api/v2/surat/${nomor}`);
+    const json = await res.json();
+    const surah = json.data;
+
+    // Set Judul Surah
+    document.getElementById("judul-surah").innerText = `${surah.namaLatin} • ${surah.arti}`;
+
+    ayatList.innerHTML = ""; // Bersihkan pesan loading
+
+    // Loop Ayat
+    surah.ayat.forEach(a => {
+      const item = `
+        <div class="ayat-card" style="margin-bottom: 25px; padding: 15px; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+          <div class="ayat-arab" style="font-size: 28px; text-align: right; direction: rtl; line-height: 2; margin-bottom: 15px; font-family: 'Scheherazade New', serif; color: #333;">
+            ${a.teksArab} 
+            <span style="font-size: 16px; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid #0f766e; border-radius: 50%; color: #0f766e; margin-right: 10px; font-family: sans-serif;">
+              ${a.nomorAyat}
+            </span>
+          </div>
+
+          <div class="ayat-terjemah" style="font-size: 14px; color: #555; line-height: 1.6; font-style: italic; border-left: 3px solid #0f766e; padding-left: 10px; margin-bottom: 15px;">
+            ${a.teksIndonesia}
+          </div>
+
+          <div class="ayat-actions" style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button onclick="playAudio('${a.audio['05']}')" style="background: #0f766e; color: white; border: none; padding: 8px 15px; border-radius: 8px; font-size: 12px; display: flex; align-items: center; gap: 5px; cursor: pointer;">
+              ▶️ Misyari Rasyid
+            </button>
+            <button onclick="copyAyat(\`${a.teksArab}\`)" style="background: #f1f1f1; color: #333; border: none; padding: 8px 15px; border-radius: 8px; font-size: 12px; display: flex; align-items: center; gap: 5px; cursor: pointer;">
+              📋 Salin
+            </button>
+          </div>
         </div>
-      </div>
-    `;
-  });
+      `;
+      ayatList.insertAdjacentHTML('beforeend', item);
+    });
+
+    // Scroll ke atas otomatis saat surah terbuka
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  } catch (error) {
+    alert("Gagal memuat ayat: " + error.message);
+    backToSurah(); 
+  }
 }
 
 function backToSurah() {
@@ -475,4 +526,75 @@ function playAudio(url) {
 function copyAyat(text) {
   navigator.clipboard.writeText(text)
     .then(() => alert("Ayat berhasil disalin"));
+}
+//Zikir
+async function openDzikirDetail(fileName) {
+  const menuGrid = document.querySelector('.dzikir-grid');
+  const detailView = document.getElementById('dzikir-detail-view');
+  const contentArea = document.getElementById('dzikir-content-area');
+  const titleArea = document.getElementById('dzikir-detail-title');
+
+  contentArea.innerHTML = "Memuat bacaan...";
+  menuGrid.style.display = 'none';
+  detailView.style.display = 'block';
+
+  try {
+    const response = await fetch(`/doa/${fileName}.html`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const htmlText = await response.text();
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlText, 'text/html');
+    const content = doc.querySelector('.content');
+
+    if (!content) {
+      throw new Error('Elemen .content tidak ditemukan');
+    }
+
+    const titleEl = content.querySelector('#title');
+    titleArea.innerText = titleEl ? titleEl.innerText : 'Dzikir';
+
+    contentArea.innerHTML = content.innerHTML;
+
+    if (titleEl) {
+      contentArea.querySelector('#title').style.display = 'none';
+    }
+
+  } catch (err) {
+    console.error(err);
+    contentArea.innerHTML = `
+      <p style="color:red;">
+        Gagal memuat bacaan dzikir.<br>
+        Pastikan file ada di <b>public/doa</b> dan struktur HTML benar.
+      </p>
+    `;
+  }
+}
+function backFromDetail() {
+  document.getElementById('dzikir-detail-view').style.display = 'none';
+
+  const doaSubmenu = document.getElementById('doa-submenu-view');
+  const mainMenu = document.getElementById('dzikir-main-menu');
+
+  // Kalau sebelumnya dari submenu
+  if (doaSubmenu && doaSubmenu.dataset.active === "true") {
+    doaSubmenu.style.display = 'block';
+  } else {
+    mainMenu.style.display = 'grid';
+  }
+}
+function openDoaSubmenu() {
+  document.getElementById('dzikir-main-menu').style.display = 'none';
+
+  const submenu = document.getElementById('doa-submenu-view');
+  submenu.style.display = 'block';
+  submenu.dataset.active = "true";
+}
+function backToDzikirMenu() {
+  document.getElementById('doa-submenu-view').style.display = 'none';
+  document.getElementById('dzikir-main-menu').style.display = 'grid';
 }
