@@ -529,49 +529,50 @@ function copyAyat(text) {
 }
 //Zikir
 async function openDzikirDetail(fileName) {
+  // Ambil semua elemen menu yang mungkin tampil
   const menuGrid = document.querySelector('.dzikir-grid');
+  const mainMenu = document.getElementById('dzikir-main-menu');
+  const doaSubmenu = document.getElementById('doa-submenu-view');
+  
   const detailView = document.getElementById('dzikir-detail-view');
   const contentArea = document.getElementById('dzikir-content-area');
   const titleArea = document.getElementById('dzikir-detail-title');
 
+  // 1. SEMBUNYIKAN SEMUA MENU agar detail naik ke paling atas
+  if (menuGrid) menuGrid.style.display = 'none';
+  if (mainMenu) mainMenu.style.display = 'none';
+  if (doaSubmenu) doaSubmenu.style.display = 'none';
+
+  // 2. Tampilkan area detail
   contentArea.innerHTML = "Memuat bacaan...";
-  menuGrid.style.display = 'none';
   detailView.style.display = 'block';
+
+  // 3. PAKSA SCROLL KE ATAS agar pengguna langsung melihat judul
+  window.scrollTo(0, 0);
 
   try {
     const response = await fetch(`/doa/${fileName}.html`);
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
     const htmlText = await response.text();
-
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlText, 'text/html');
     const content = doc.querySelector('.content');
 
-    if (!content) {
-      throw new Error('Elemen .content tidak ditemukan');
-    }
+    if (!content) throw new Error('Elemen .content tidak ditemukan');
 
     const titleEl = content.querySelector('#title');
     titleArea.innerText = titleEl ? titleEl.innerText : 'Dzikir';
-
     contentArea.innerHTML = content.innerHTML;
 
     if (titleEl) {
-      contentArea.querySelector('#title').style.display = 'none';
+      const internalTitle = contentArea.querySelector('#title');
+      if (internalTitle) internalTitle.style.display = 'none';
     }
 
   } catch (err) {
     console.error(err);
-    contentArea.innerHTML = `
-      <p style="color:red;">
-        Gagal memuat bacaan dzikir.<br>
-        Pastikan file ada di <b>public/doa</b> dan struktur HTML benar.
-      </p>
-    `;
+    contentArea.innerHTML = `<p style="color:red;">Gagal memuat bacaan.</p>`;
   }
 }
 function backFromDetail() {
