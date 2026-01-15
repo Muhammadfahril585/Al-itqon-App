@@ -64,8 +64,8 @@
     </section>
 
     <section class="menu-grid">
-      <div class="menu-item">🙏<p>Dzikir & Doa</p></div>
-      <div class="menu-item">📖<p>Al-Qur'an</p></div>
+      <div class="menu-item" onclick="switchTab('dzikir')">🙏<p>Dzikir & Doa</p></div>
+      <div class="menu-item">📕<p>Raport Santri</p></div>
       <div class="menu-item">🛏️<p>Kamar Santri</p></div>
       <div class="menu-item">📖👥<p>Halaqah Qur'an</p></div>
       <div class="menu-item">📋<p>Santri Ujian</p></div>
@@ -156,8 +156,127 @@
 
     <div id="ayat-list"></div>
   </section>
-
 </main>
+<main id="tab-dzikir" class="tab-content" style="display:none">
+  <section class="dzikir-container">
+
+    <!-- HEADER -->
+    <div class="dzikir-header">
+      <button onclick="switchTab('beranda')" class="btn-back">←</button>
+      <h3>Dzikir & Doa</h3>
+    </div>
+
+    <!-- ===== MENU UTAMA ===== -->
+    <div id="dzikir-main-menu" class="dzikir-grid">
+
+      <div class="dzikir-card" onclick="openDzikirDetail('pagi')">
+        <span class="dzikir-icon">🌅</span>
+        <div class="dzikir-info">
+          <h4>Zikir Pagi</h4>
+          <p>Sesuai Sunnah Nabi ﷺ</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+
+      <div class="dzikir-card" onclick="openDzikirDetail('petang')">
+        <span class="dzikir-icon">🌇</span>
+        <div class="dzikir-info">
+          <h4>Zikir Petang</h4>
+          <p>Perlindungan di Sore Hari</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+
+      <div class="dzikir-card" onclick="openDzikirDetail('sholat')">
+        <span class="dzikir-icon">📿</span>
+        <div class="dzikir-info">
+          <h4>Zikir Sesudah Shalat</h4>
+          <p>Wirid fardhu lengkap</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+
+      <!-- DOA HARIAN (SUBMENU) -->
+      <div class="dzikir-card" onclick="openDoaSubmenu()">
+        <span class="dzikir-icon">🤲</span>
+        <div class="dzikir-info">
+          <h4>Doa Harian & Lainnya</h4>
+          <p>Kumpulan doa-doa pilihan</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+
+    </div>
+    <!-- ===== END MENU UTAMA ===== -->
+
+
+    <!-- ===== SUBMENU DOA HARIAN ===== -->
+    <div id="doa-submenu-view" style="display:none">
+
+      <div class="dzikir-header">
+        <button onclick="backToDzikirMenu()" class="btn-back">← Kembali</button>
+        <h3>Doa Harian & Lainnya</h3>
+      </div>
+
+      <div class="dzikir-grid">
+
+        <div class="dzikir-card" onclick="openDzikirDetail('tahlil')">
+          <span class="dzikir-icon">📿</span>
+          <div class="dzikir-info">
+            <h4>Bacaan Tahlil</h4>
+            <p>Kalimat Tauhid & Keutamaannya</p>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+
+        <!-- contoh doa lain -->
+        <div class="dzikir-card" onclick="openDzikirDetail('istigfar')">
+          <span class="dzikir-icon">🙏</span>
+          <div class="dzikir-info">
+            <h4>Istigfar</h4>
+            <p>Istigfar & Memohon Ampunan</p>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+         <div class="dzikir-card" onclick="openDzikirDetail('qurban')">
+          <span class="dzikir-icon">🐂</span>
+          <div class="dzikir-info">
+            <h4>Idul Adha</h4>
+            <p>Doa ketika menyembelih qurban</p>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+         <div class="dzikir-card" onclick="openDzikirDetail('kebaikan')">
+          <span class="dzikir-icon">🤝</span>
+          <div class="dzikir-info">
+            <h4>Kebaikan Agama & Akhlak</h4>
+            <p>Doa Memohon Keistikamahan </p>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+    </div>
+    <!-- ===== END SUBMENU ===== -->
+
+
+    <!-- ===== DETAIL VIEW ===== -->
+    <div id="dzikir-detail-view" style="display:none">
+
+      <div class="dzikir-header">
+        <button onclick="backFromDetail()" class="btn-back">← Kembali</button>
+        <h3 id="dzikir-detail-title">Judul Doa</h3>
+      </div>
+
+      <div id="dzikir-content-area" class="dzikir-detail-content">
+        <!-- isi dzikir / doa -->
+      </div>
+
+    </div>
+    <!-- ===== END DETAIL VIEW ===== -->
+
+  </section>
+</main>
+
   <nav class="navbar">
     <div class="nav active" id="nav-beranda" onclick="switchTab('beranda')">
       🏠<span>Beranda</span>
