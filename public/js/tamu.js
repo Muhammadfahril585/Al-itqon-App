@@ -528,26 +528,46 @@ function copyAyat(text) {
     .then(() => alert("Ayat berhasil disalin"));
 }
 //Zikir
-async function openDzikirDetail(fileName) {
-  // Ambil semua elemen menu yang mungkin tampil
-  const menuGrid = document.querySelector('.dzikir-grid');
-  const mainMenu = document.getElementById('dzikir-main-menu');
-  const doaSubmenu = document.getElementById('doa-submenu-view');
-  
+const daftarUrutan = {
+  'pagi': [
+    'pagi-1', 'pagi-2', 'pagi-3', 'pagi-4', 'pagi-5',
+    'pagi-6', 'pagi-7', 'pagi-8', 'pagi-9', 'pagi-10',
+    'pagi-11', 'pagi-12', 'pagi-13', 'pagi-14', 'pagi-15',
+    'pagi-16', 'pagi-17', 'pagi-18', 'pagi-19'
+  ],
+  'petang': [
+    'petang-1', 'petang-2', 'petang-3', 'petang-4', 'petang-5',
+    'petang-6', 'petang-7', 'petang-8', 'petang-9', 'petang-10',
+    'petang-11', 'petang-12', 'petang-13', 'petang-14', 'petang-15',
+    'petang-16', 'petang-17'
+  ],
+  'sholat': ['sholat-1', 'sholat-2'],
+  'tahlil': ['tahlil-1', 'tahlil-2', 'tahlil-3'],
+  'doa': ['doa-tidur', 'doa-makan', 'doa-ortu']
+};
+
+// Variabel bantuan untuk melacak posisi saat ini
+let currentCategory = '';
+let currentIndex = 0;
+async function openDzikirDetail(fileName, category = null) {
+  // Jika category dikirim (saat klik menu utama), simpan category-nya
+  if (category) {
+    currentCategory = category;
+    currentIndex = daftarUrutan[category].indexOf(fileName);
+  }
+
   const detailView = document.getElementById('dzikir-detail-view');
   const contentArea = document.getElementById('dzikir-content-area');
   const titleArea = document.getElementById('dzikir-detail-title');
 
-  // 1. SEMBUNYIKAN SEMUA MENU agar detail naik ke paling atas
-  if (menuGrid) menuGrid.style.display = 'none';
-  if (mainMenu) mainMenu.style.display = 'none';
-  if (doaSubmenu) doaSubmenu.style.display = 'none';
+  // Sembunyikan menu-menu
+  document.getElementById('dzikir-main-menu').style.display = 'none';
+  if(document.getElementById('doa-submenu-view')) {
+      document.getElementById('doa-submenu-view').style.display = 'none';
+  }
 
-  // 2. Tampilkan area detail
   contentArea.innerHTML = "Memuat bacaan...";
   detailView.style.display = 'block';
-
-  // 3. PAKSA SCROLL KE ATAS agar pengguna langsung melihat judul
   window.scrollTo(0, 0);
 
   try {
@@ -563,7 +583,10 @@ async function openDzikirDetail(fileName) {
 
     const titleEl = content.querySelector('#title');
     titleArea.innerText = titleEl ? titleEl.innerText : 'Dzikir';
+    
+    // Render Konten + Tombol Navigasi
     contentArea.innerHTML = content.innerHTML;
+    renderNavigationButtons(contentArea);
 
     if (titleEl) {
       const internalTitle = contentArea.querySelector('#title');
@@ -575,6 +598,32 @@ async function openDzikirDetail(fileName) {
     contentArea.innerHTML = `<p style="color:red;">Gagal memuat bacaan.</p>`;
   }
 }
+
+// FUNGSI BARU: Menampilkan tombol kanan kiri
+function renderNavigationButtons(container) {
+  if (!currentCategory || !daftarUrutan[currentCategory]) return;
+
+  const list = daftarUrutan[currentCategory];
+  const hasPrev = currentIndex > 0;
+  const hasNext = currentIndex < list.length - 1;
+
+  const navHtml = `
+    <div class="dzikir-nav-container" style="display:flex; justify-content:space-between; margin-top:20px; padding:10px 0; border-top:1px solid #eee;">
+      <button onclick="changeDoa(-1)" ${!hasPrev ? 'style="visibility:hidden"' : ''} class="btn-nav">← Sebelumnya</button>
+      <span style="font-size:0.8rem; color:#888">${currentIndex + 1} / ${list.length}</span>
+      <button onclick="changeDoa(1)" ${!hasNext ? 'style="visibility:hidden"' : ''} class="btn-nav">Berikutnya →</button>
+    </div>
+  `;
+  container.insertAdjacentHTML('beforeend', navHtml);
+}
+
+// FUNGSI BARU: Berpindah doa
+function changeDoa(direction) {
+  currentIndex += direction;
+  const nextFile = daftarUrutan[currentCategory][currentIndex];
+  openDzikirDetail(nextFile); // Panggil ulang tanpa kirim parameter category agar tetap di kategori yang sama
+}
+
 function backFromDetail() {
   document.getElementById('dzikir-detail-view').style.display = 'none';
 
