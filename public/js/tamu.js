@@ -533,22 +533,92 @@ const daftarUrutan = {
     'pagi-1', 'pagi-2', 'pagi-3', 'pagi-4', 'pagi-5',
     'pagi-6', 'pagi-7', 'pagi-8', 'pagi-9', 'pagi-10',
     'pagi-11', 'pagi-12', 'pagi-13', 'pagi-14', 'pagi-15',
-    'pagi-16', 'pagi-17', 'pagi-18', 'pagi-19'
+    'pagi-16', 'pagi-17', 'pagi-18', 'pagi-19', 'pagi-20',
+    'pagi-21', 'pagi-22', 'pagi-23', 'pagi-24'
   ],
   'petang': [
     'petang-1', 'petang-2', 'petang-3', 'petang-4', 'petang-5',
     'petang-6', 'petang-7', 'petang-8', 'petang-9', 'petang-10',
     'petang-11', 'petang-12', 'petang-13', 'petang-14', 'petang-15',
-    'petang-16', 'petang-17'
+    'petang-16', 'petang-17', 'petang-18', 'petang-19', 'petang-20',
+    'petang-21', 'petang-22', 'petang-23', 'petang-24'
   ],
-  'sholat': ['sholat-1', 'sholat-2'],
-  'tahlil': ['tahlil-1', 'tahlil-2', 'tahlil-3'],
-  'doa': ['doa-tidur', 'doa-makan', 'doa-ortu']
+  'sholat': [
+    'sholat-1', 'sholat-2', 'sholat-3', 'sholat-4', 'sholat-5',
+    'sholat-6', 'sholat-7', 'sholat-8', 'sholat-9', 'sholat-10',
+    'sholat-11', 'sholat-12', 'sholat-13', 'sholat-14', 'sholat-15',
+    'sholat-16'
+  ],
+  'Sebab': [
+    'Sebab-1', 'Sebab-2', 'Sebab-3', 'Sebab-4', 'Sebab-5',
+    'Sebab-6', 'Sebab-7', 'Sebab-8', 'Sebab-9', 'Sebab-10',
+    'Sebab-11', 'Sebab-12', 'Sebab-13', 'Sebab-14', 'Sebab-15',
+    'Sebab-16', 'Sebab-17', 'Sebab-18', 'Sebab-19', 'Sebab-20',
+    'Sebab-21', 'Sebab-22', 'Sebab-23', 'Sebab-24', 'Sebab-25',
+    'Sebab-26', 'Sebab-27', 'Sebab-28', 'Sebab-29', 'Sebab-30',
+    'Sebab-31', 'Sebab-32'
+  ],
+  'Walimah': ['Walimah-1', 'Walimah-2'],
+  'Setiap': [
+    'Setiap-1', 'Setiap-2', 'Setiap-3', 'Setiap-4', 'Setiap-5',
+    'Setiap-6', 'Setiap-7'
+  ],
+  'Ruqyah': [
+    'Ruqyah1', 'Ruqyah2', 'Ruqyah3', 'Ruqyah4', 'Ruqyah5',
+    'Ruqyah6', 'Ruqyah7', 'Ruqyah8', 'Ruqyah9'
+  ],
+  'Ramadhan': ['Ramadhan-1', 'Ramadhan-2'],
+  'Perjalanan': [
+    'Perjalanan-1', 'Perjalanan-2', 'Perjalanan-3', 'Perjalanan-4',
+    'Perjalanan-5', 'Perjalanan-6'
+  ],
+  'Musibah': [
+    'Musibah-1', 'Musibah-2', 'Musibah-3', 'Musibah-4', 'Musibah-5',
+    'Musibah-6', 'Musibah-7', 'Musibah-8'
+  ],
+  'Keluarga': [
+    'Keluarga-1', 'Keluarga-2', 'Keluarga-3', 'Keluarga-4',
+    'Keluarga-5', 'Keluarga-6'
+  ],
+  'Ilmu': ['Ilmu-1', 'Ilmu-2'],
+  'Harian': [
+    'Harian-1', 'Harian-2', 'Harian-3', 'Harian-4', 'Harian-5',
+    'Harian-6', 'Harian-7', 'Harian-8', 'Harian-9', 'Harian-10',
+    'Harian-11', 'Harian-12', 'Harian-13', 'Harian-14', 'Harian-15',
+    'Harian-16', 'Harian-17', 'Harian-18', 'Harian-19', 'Harian-20',
+    'Harian-21', 'Harian-22'
+  ],
+  'HajiUmroh': [
+    'HajiUmroh-1', 'HajiUmroh-2', 'HajiUmroh-3', 'HajiUmroh-4',
+    'HajiUmroh-5', 'HajiUmroh-6', 'HajiUmroh-7', 'HajiUmroh-8',
+    'HajiUmroh-9', 'HajiUmroh-10', 'HajiUmroh-11', 'HajiUmroh-12',
+    'HajiUmroh-13', 'HajiUmroh-14'
+  ],
+  'Fitri': ['Fitri-1', 'Fitri-2'],
+  'Fenomena': [
+    'Fenomena-1', 'Fenomena-2', 'Fenomena-3', 'Fenomena-4',
+    'Fenomena-5', 'Fenomena-6', 'Fenomena-7'
+  ],
+  'DzikirSetelahSholat': [
+    'DzikirSetelahSholat1', 'DzikirSetelahSholat2', 'DzikirSetelahSholat3',
+    'DzikirSetelahSholat4', 'DzikirSetelahSholat5', 'DzikirSetelahSholat6',
+    'DzikirSetelahSholat7', 'DzikirSetelahSholat8', 'DzikirSetelahSholat9',
+    'DzikirSetelahSholat10', 'DzikirSetelahSholat11', 'DzikirSetelahSholat12'
+  ],
+  'Akhlak': [
+    'Akhlak-1', 'Akhlak-2', 'Akhlak-3', 'Akhlak-4', 'Akhlak-5',
+    'Akhlak-6', 'Akhlak-7', 'Akhlak-8', 'Akhlak-9', 'Akhlak-10'
+  ],
+  'Kematian': [
+    '1Kematian', '2Kematian', '3Kematian', '4Kematian', '5Kematian',
+    '6Kematian', '7Kematian', '8Kematian', '9Kematian'
+  ]
 };
 
 // Variabel bantuan untuk melacak posisi saat ini
 let currentCategory = '';
 let currentIndex = 0;
+
 async function openDzikirDetail(fileName, category = null) {
   // Jika category dikirim (saat klik menu utama), simpan category-nya
   if (category) {
