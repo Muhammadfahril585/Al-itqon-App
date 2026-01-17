@@ -157,18 +157,15 @@
     <div id="ayat-list"></div>
   </section>
 </main>
-<main id="tab-dzikir" class="tab-content" style="display:none">
+  <main id="tab-dzikir" class="tab-content" style="display:none">
   <section class="dzikir-container">
-
     <!-- HEADER -->
     <div class="dzikir-header">
       <button onclick="switchTab('beranda')" class="btn-back">←</button>
       <h3>Dzikir & Doa</h3>
     </div>
-
     <!-- ===== MENU UTAMA ===== -->
     <div id="dzikir-main-menu" class="dzikir-grid">
-
       <div class="dzikir-card" onclick="openDzikirDetail('pagi-1', 'pagi')">
         <span class="dzikir-icon">🌅</span>
         <div class="dzikir-info">
@@ -177,8 +174,7 @@
         </div>
         <span class="arrow">→</span>
       </div>
-
-      <div class="dzikir-card" onclick="openDzikirDetail('petang-1', petang')">
+      <div class="dzikir-card" onclick="openDzikirDetail('petang-1', 'petang')">
         <span class="dzikir-icon">🌇</span>
         <div class="dzikir-info">
           <h4>Zikir Petang</h4>
@@ -186,8 +182,7 @@
         </div>
         <span class="arrow">→</span>
       </div>
-
-      <div class="dzikir-card" onclick="openDzikirDetail('sholat')">
+      <div class="dzikir-card" onclick="openDzikirDetail('sholat-1','sholat')">
         <span class="dzikir-icon">📿</span>
         <div class="dzikir-info">
           <h4>Zikir Sesudah Shalat</h4>
@@ -195,30 +190,137 @@
         </div>
         <span class="arrow">→</span>
       </div>
-
-      <div class="dzikir-card" onclick="openDzikirDetail('doa')">
-  <span class="dzikir-icon">🤲</span>
-  <div class="dzikir-info">
-    <h4>Doa Harian & Lainnya</h4>
-    <p>Kumpulan doa-doa mustajab</p>
-  </div>
-  <span class="arrow">→</span>
-</div>
-
-<!-- Tambahkan di sini -->
-<div class="dzikir-card" onclick="openDzikirDetail('tahlil')">
-  <span class="dzikir-icon">📿</span>
-  <div class="dzikir-info">
-    <h4>Bacaan Tahlil</h4>
-    <p>Kalimat Tauhid & Keutamaannya</p>
-  </div>
-  <span class="arrow">→</span>
-</div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Sebab-1','Sebab')">
+        <span class="dzikir-icon">🤲</span>
+        <div class="dzikir-info">
+          <h4>Doa Sebab-Sebab</h4>
+          <p>Kumpulan doa-doa sebab</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Walimah-1','Walimah')">
+        <span class="dzikir-icon">🍴</span>
+        <div class="dzikir-info">
+          <h4>Doa Walimah</h4>
+          <p>Kumpulan doa-doa walimah</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Setiap-1','Setiap')">
+        <span class="dzikir-icon">📆</span>
+        <div class="dzikir-info">
+          <h4>Doa Setiap Hari</h4>
+          <p>Kumpulan doa-doa setiap hari</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Ruqyah-1','Ruqyah')">
+        <span class="dzikir-icon">🙏</span>
+        <div class="dzikir-info">
+          <h4>Doa Ruqyah</h4>
+          <p>Kumpulan doa-doa ruqyah</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Ramadhan-1','Ramadhan')">
+        <span class="dzikir-icon">🌙</span>
+        <div class="dzikir-info">
+          <h4>Doa Ramadhan</h4>
+          <p>Kumpulan doa-doa ramadhan</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Perjalanan-1','Perjalanan')">
+        <span class="dzikir-icon">🚗</span>
+        <div class="dzikir-info">
+          <h4>Doa Perjalanan</h4>
+          <p>Kumpulan doa-doa perjalanan</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Musibah-1','Musibah')">
+        <span class="dzikir-icon">🤕</span>
+        <div class="dzikir-info">
+          <h4>Doa Musibah</h4>
+          <p>Kumpulan doa-doa musibah</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Keluarga-1','Keluarga')">
+        <span class="dzikir-icon">👪</span>
+        <div class="dzikir-info">
+          <h4>Doa Keluarga</h4>
+          <p>Kumpulan doa-doa keluarga</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Ilmu-1','Ilmu')">
+        <span class="dzikir-icon">📚</span>
+        <div class="dzikir-info">
+          <h4>Doa Ilmu</h4>
+          <p>Kumpulan doa-doa ilmu</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Harian-1','Harian')">
+        <span class="dzikir-icon">📆</span>
+        <div class="dzikir-info">
+          <h4>Doa Harian</h4>
+          <p>Kumpulan doa-doa harian</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('HajiUmroh-1','HajiUmroh')">
+        <span class="dzikir-icon">🕋</span>
+        <div class="dzikir-info">
+          <h4>Doa Haji & Umroh</h4>
+          <p>Kumpulan doa-doa haji & umroh</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Fitri-1','Fitri')">
+        <span class="dzikir-icon">🎉</span>
+        <div class="dzikir-info">
+          <h4>Doa Fitri</h4>
+          <p>Kumpulan doa-doa fitri</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Fenomena-1','Fenomena')">
+        <span class="dzikir-icon">🌟</span>
+        <div class="dzikir-info">
+          <h4>Doa Fenomena</h4>
+          <p>Kumpulan doa-doa fenomena</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('DzikirSetelahSholat-1','DzikirSetelahSholat')">
+        <span class="dzikir-icon">📿</span>
+        <div class="dzikir-info">
+          <h4>Doa Dzikir Setelah Sholat</h4>
+          <p>Kumpulan doa-doa dzikir setelah sholat</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Akhlak-1','Akhlak')">
+        <span class="dzikir-icon">🤲</span>
+        <div class="dzikir-info">
+          <h4>Doa Adab & Lainnya</h4>
+          <p>Kumpulan doa-doa akhlak</p>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="dzikir-card" onclick="openDzikirDetail('Kematian-1','Kematian')">
+        <span class="dzikir-icon">📿</span>
+        <div class="dzikir-info">
+          <h4>Bacaan Doa Berkaitan dengan Kematian</h4>
+          <p>Zikir & Doa Berkaitan Dengan Kematian</p>
+        </div>
+        <span class="arrow">→</span>
       </div>
     </div>
+  </div>
     <!-- ===== END SUBMENU ===== -->
-
-
     <!-- ===== DETAIL VIEW ===== -->
     <div id="dzikir-detail-view" style="display:none">
 
