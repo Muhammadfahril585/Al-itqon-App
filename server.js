@@ -1,11 +1,12 @@
 const express = require("express");
 require('dotenv').config();
 const path = require("path");
-const startTime = Date.now(); 
+const startTime = Date.now();
 
 const app = express();
 
-// ⚠️ PENTING: Pterodactyl WAJIB pakai PORT dari environment
+// Render secara otomatis mengatur environment variable PORT.
+// Jika tidak ada (lokal), dia akan menggunakan 3000.
 const PORT = process.env.PORT || 3000;
 
 // ===== middleware =====
@@ -21,12 +22,14 @@ app.get("/", (req, res) => {
 app.post("/login", (req, res) => {
   const { role, id } = req.body;
 
-  const ADMIN_ID = process.env.ADMIN_ID || "admin123";
-  const PEMBINA_ID = process.env.PEMBINA_ID || "pembina123";
+  // Mengambil ID langsung dari Environment Variables Render
+  const ADMIN_ID = process.env.ADMIN_ID;
+  const PEMBINA_ID = process.env.PEMBINA_ID;
 
   if (role === "tamu") {
     return res.redirect("/tamu");
-}
+  }
+
   if (role === "admin" && id === ADMIN_ID) {
     return res.redirect("/admin");
   }
@@ -35,16 +38,24 @@ app.post("/login", (req, res) => {
     return res.redirect("/pembina");
   }
 
-  return res.status(401).send("ID tidak valid");
+  // Pesan error jika ID salah atau belum di-set di Render
+  return res.status(401).send("Akses Ditolak: ID tidak valid atau sistem belum dikonfigurasi.");
 });
+
 app.get("/tamu", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "tamu.html"));
 });
+
 app.get("/admin", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "admin.html"));
 });
+
 app.get("/pembina", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "pembina.html"));
+});
+
+app.get('/raport', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'raport.html'));
 });
 
 // ===== health check (debug) =====
@@ -63,5 +74,5 @@ app.get("/ping", (req, res) => {
 
 // ===== start server =====
 app.listen(PORT, () => {
-  console.log("Server jalan di port", PORT);
+  console.log(`Server berjalan di port ${PORT}`);
 });
