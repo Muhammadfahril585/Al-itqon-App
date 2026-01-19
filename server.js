@@ -1,11 +1,10 @@
 require("dotenv").config();
-
 const express = require("express");
 const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
+const MongoStore = require("connect-mongo");
 const path = require("path");
-
 const app = express();
+
 const startTime = Date.now();
 
 // ===============================
@@ -30,7 +29,6 @@ if (!process.env.MONGO_URI) {
 if (!process.env.SESSION_SECRET) {
   throw new Error("❌ SESSION_SECRET belum diset di environment!");
 }
-
 app.use(
   session({
     name: "alitqon.sid",
@@ -38,11 +36,13 @@ app.use(
     resave: false,
     saveUninitialized: false,
 
-    store: new MongoStore({
+    store: MongoStore.create({
       mongoUrl: process.env.MONGO_URI,
       dbName: process.env.MONGO_DB_NAME || "alitqon_app",
-      collection: "web_sessions",
-      ttl: 60 * 60 * 24 * 7 // 7 hari
+      collectionName: "web_sessions",
+
+      // ⚠️ TTL HARUS NUMBER (detik)
+      ttl: 60 * 60 * 24 * 7
     }),
 
     cookie: {
@@ -53,7 +53,6 @@ app.use(
     }
   })
 );
-
 // ===============================
 // MIDDLEWARE AUTH
 // ===============================
