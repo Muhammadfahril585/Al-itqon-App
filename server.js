@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
+const MongoStore = require("connect-mongo")(session);
 const path = require("path");
 
 const app = express();
@@ -38,10 +38,10 @@ app.use(
     resave: false,
     saveUninitialized: false,
 
-    store: MongoStore.create({
+    store: new MongoStore({
       mongoUrl: process.env.MONGO_URI,
       dbName: process.env.MONGO_DB_NAME || "alitqon_app",
-      collectionName: "web_sessions",
+      collection: "web_sessions",
       ttl: 60 * 60 * 24 * 7 // 7 hari
     }),
 
