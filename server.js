@@ -90,22 +90,37 @@ app.post("/login", (req, res) => {
   const ADMIN_ID = process.env.ADMIN_ID;
   const PEMBINA_ID = process.env.PEMBINA_ID;
 
+  // ===== TAMU =====
   if (role === "tamu") {
-    req.session.role = "tamu";
-    return res.redirect("/tamu");
+    return req.session.regenerate(() => {
+      req.session.role = "tamu";
+      req.session.save(() => {
+        res.redirect("/tamu");
+      });
+    });
   }
 
+  // ===== ADMIN =====
   if (role === "admin" && id === ADMIN_ID) {
-    req.session.role = "admin";
-    return res.redirect("/admin");
+    return req.session.regenerate(() => {
+      req.session.role = "admin";
+      req.session.save(() => {
+        res.redirect("/admin");
+      });
+    });
   }
 
+  // ===== PEMBINA =====
   if (role === "pembina" && id === PEMBINA_ID) {
-    req.session.role = "pembina";
-    return res.redirect("/pembina");
+    return req.session.regenerate(() => {
+      req.session.role = "pembina";
+      req.session.save(() => {
+        res.redirect("/pembina");
+      });
+    });
   }
 
-  return res.status(401).send("Akses Ditolak: ID tidak valid");
+  return res.status(401).send("Akses Ditolak");
 });
 
 // HALAMAN TERPROTEKSI
