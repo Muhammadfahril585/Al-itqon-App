@@ -4,6 +4,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo").default;
 const path = require("path");
 const app = express();
+app.set("trust proxy", 1);
 
 const startTime = Date.now();
 
@@ -86,41 +87,34 @@ app.get("/", (req, res) => {
 // PROSES LOGIN
 app.post("/login", (req, res) => {
   const { role, id } = req.body;
-
   const ADMIN_ID = process.env.ADMIN_ID;
   const PEMBINA_ID = process.env.PEMBINA_ID;
 
-  // ===== TAMU =====
-  if (role === "tamu") {
-    return req.session.regenerate(() => {
-      req.session.role = "tamu";
-      req.session.save(() => {
-        res.redirect("/tamu");
-      });
-    });
+  // Logika validasi role
+  let valid = false;
+  if (role === "tamu") valid = true;
+  if (role === "admin" && id === ADMIN_ID) valid = true;
+  if (role === "pembina" && id === PEMBINA_ID) valid = true;
+
+  if (!valid) {
+    return res.status(401).send("Akses Ditolak: ID atau Role tidak valid");
   }
 
-  // ===== ADMIN =====
-  if (role === "admin" && id === ADMIN_ID) {
-    return req.session.regenerate(() => {
-      req.session.role = "admin";
-      req.session.save(() => {
-        res.redirect("/admin");
-      });
-    });
-  }
+  // Proses Regenerate Session yang Aman
+  req.session.regenerate((err) => {
+    if (err) return res.status(500).send("Gagal membuat session");
 
-  // ===== PEMBINA =====
-  if (role === "pembina" && id === PEMBINA_ID) {
-    return req.session.regenerate(() => {
-      req.session.role = "pembina";
-      req.session.save(() => {
-        res.redirect("/pembina");
-      });
-    });
-  }
+    // Isi data setelah session baru dibuat
+    req.session.role = role;
 
-  return res.status(401).send("Akses Ditolak");
+    // Paksa simpan ke database sebelum redirect
+    req.session.save((err) => {
+      if (err) return res.status(500).send("Gagal menyimpan session");
+      
+      // Redirect sesuai role
+      res.redirect(`/${role}`);
+    });
+  });
 });
 
 // HALAMAN TERPROTEKSI
