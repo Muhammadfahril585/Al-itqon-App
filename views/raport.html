@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Raport Santri - PPTQ Al-Itqon</title>
+  <link rel="stylesheet" href="css/raport.css">
+</head>
+<body>
+
+  <div class="page-header">
+    <button class="back-btn" onclick="history.back()">←</button>
+    <div>
+      <h1 style="margin:0; font-size: 1.2rem;">Raport Santri</h1>
+      <p style="margin:0; font-size: 0.9rem;">PPTQ Al-Itqon</p>
+    </div>
+  </div>
+
+  <div class="raport-container" id="main-menu">
+    <div class="raport-card tahfidz" onclick="openRaport('tahfidz')">
+      <div class="icon" style="font-size: 2rem;">📖</div>
+      <h2>Raport Tahfidz</h2>
+      <p>Laporan hafalan Al-Qur'an santri</p>
+    </div>
+
+    <div class="raport-card sekolah" onclick="openRaport('sekolah')">
+      <div class="icon" style="font-size: 2rem;">🏫</div>
+      <h2>Raport Nilai Sekolah</h2>
+      <p>Nilai akademik dan evaluasi belajar</p>
+    </div>
+  </div>
+
+  <div id="id-verification-modal" class="modal-overlay" style="display:none;">
+    <div class="modal-content">
+      <p class="warning-text">
+        Demi menjaga keamanan data santri, hanya orang tua/wali yang diperkenankan melihat raport.
+        <br><br>
+        Silakan masukkan <b>ID Santri</b> 👇
+      </p>
+
+      <input type="text" id="input-id-santri" placeholder="Contoh: AITQ-001" class="id-input">
+
+      <small class="contact-text">
+        Hubungi <b>Ustadz Laode Muh Fahril</b> untuk mengetahui ID santri.
+      </small>
+
+      <button class="btn-selesai" onclick="verifyID()">Lihat Raport</button>
+      <button class="btn-batal" onclick="closeModal()">Batal</button>
+    </div>
+  </div>
+
+  <div id="raport-result-wrapper" style="display:none;">
+    <div id="raport-result">
+      </div>
+  </div>
+  <script src="js/assets.js"></script>
+  <script src="js/raport.js"></script>
+</body>
+</html>
