@@ -1,0 +1,500 @@
+/* =====================================================
+   RESET & GLOBAL
+===================================================== */
+html, body {
+  overflow-x: hidden; /* Mencegah goyang ke samping di menu utama */
+  overflow-y: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4fdfb;
+  color: #333;
+}
+
+/* =====================================================
+   HEADER & MENU
+===================================================== */
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: #0f766e;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.back-btn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+  font-size: 18px;
+  border-radius: 10px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.raport-container {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.raport-card {
+  background: white;
+  border-radius: 18px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+}
+
+.raport-card h2 { margin-top: 10px; color: #065f46; }
+.raport-card.tahfidz { border-top: 6px solid #16a34a; }
+.raport-card.sekolah { border-top: 6px solid #0ea5e9; }
+
+/* =====================================================
+   MODAL SYSTEM
+===================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.id-input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #0f766e;
+  border-radius: 10px;
+  margin: 15px 0;
+  font-size: 16px;
+}
+
+.btn-selesai {
+  background: #0f766e;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* =====================================================
+   SISTEM RAPORT DINAMIS (KUNCI UTAMA)
+===================================================== */
+
+/* Wrapper Utama agar bisa scroll & zoom */
+#raport-result-wrapper {
+  width: 100%;
+  padding: 10px;
+  background: #f4fdfb;
+  overflow: auto; /* Memungkinkan scroll jika tabel sangat besar */
+}
+
+/* Area Hasil Raport */
+#raport-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 960px; /* Memaksa area tetap lebar agar tabel tidak ciut */
+}
+
+/* Kartu Putih Raport (Ukuran Kertas) */
+#raport-result .raport-card {
+  width: 944px; /* Lebar standar kertas */
+  margin: 20px auto;
+  padding: 40px;
+  border-radius: 8px; /* Lebih kotak seperti kertas asli */
+  text-align: left;
+  transform-origin: top center;
+}
+
+/* MEDIA QUERY: MENGECILKAN TAMPILAN DI HP */
+@media screen and (max-width: 944px) {
+  #raport-result-wrapper {
+    padding: 5px;
+  }
+  
+  #raport-result {
+    min-width: 100%; /* Reset min-width di HP agar mengikuti zoom */
+  }
+
+  #raport-result .raport-card {
+    /* Gunakan Zoom untuk Chrome/Safari, Scale untuk Firefox */
+    zoom: 0.38; 
+    -moz-transform: scale(0.38);
+    -moz-transform-origin: top center;
+    margin: 10px auto;
+  }
+}
+
+/* =====================================================
+   TABEL & KONTEN RAPORT (INTERNAL)
+===================================================== */
+.raport-header-text { text-align: center; margin-bottom: 20px; }
+/* Tabel identitas */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+/* Semua sel */
+.info-table td {
+  padding: 4px 6px;
+  vertical-align: top;
+}
+
+/* Label kiri (Nama, NIS) */
+.info-table td:nth-child(1) {
+  text-align: left;
+}
+
+/* Isi kiri (nama, nis) */
+.info-table td:nth-child(2) {
+  text-align: left;
+}
+
+/* Label kanan (Kelas, Semester) */
+.info-table td:nth-child(3) {
+  text-align: right;
+  padding-right: 6px;
+}
+
+/* Isi kanan (nilai kelas & semester) */
+.info-table td:nth-child(4) {
+  text-align: right;
+}
+.section-label {
+  background: #f0f0f0;
+  border: 1px solid #000;
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+}
+
+.table-raport {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.table-raport th, .table-raport td {
+  border: 1px solid #000;
+  padding: 6px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.catatan-style {
+  border: 1px solid #000;
+  padding: 10px;
+  min-height: 60px;
+  background: #fff;
+  font-size: 12px;
+}
+
+.btn-back {
+  padding: 10px 25px;
+  background: #0f766e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+/* ===============================
+   HALAMAN SAMPUL RAPORT
+================================ */
+
+.raport-page-cover {
+  width: 944px;
+  min-height: 1000px;
+  background: #fff;
+  margin: 0 auto 40px auto;
+  padding: 60px 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+/* Wrapper isi agar benar-benar center */
+.cover-content {
+  width: 100%;
+  text-align: center;
+}
+
+/* ===============================
+   JUDUL SAMPUL
+================================ */
+
+.cover-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.cover-header h2 {
+  margin: 6px 0;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+/* ===============================
+   LOGO
+================================ */
+
+.logo-wrapper {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.logo-besar {
+  width: 300px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ===============================
+   IDENTITAS SANTRI
+================================ */
+
+.identitas-santri-cover {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.identitas-santri-cover p {
+  margin: 14px 0 6px 0;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+.line-name,
+.line-nis {
+  width: 450px;
+  margin: 0 auto 18px auto;
+  border-bottom: 2px dotted #000;
+  padding: 8px 10px;
+  font-size: 24px;
+  min-height: 36px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* ===============================
+   FOOTER YAYASAN
+================================ */
+
+.footer-yayasan {
+  margin-top: 45px;
+  text-align: center;
+}
+
+.footer-yayasan h3 {
+  margin: 4px 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* ===============================
+   PRINT (A4)
+================================ */
+
+@media print {
+  .raport-page-cover {
+    height: 1250px;
+    box-shadow: none;
+    page-break-after: always;
+  }
+}
+
+/* ===============================
+   MODE HP (SINKRON SAMPUL & TABEL)
+================================ */
+
+@media screen and (max-width: 944px) {
+  #raport-result {
+    min-width: 100%;
+    display: block;
+  }
+
+  .raport-page-cover,
+  #raport-result .raport-card {
+    zoom: 0.38;
+    -moz-transform: scale(0.38);
+    -moz-transform-origin: top center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .raport-page-cover {
+    margin-bottom: 20px;
+  }
+}
+/* Styling Halaman Petunjuk */
+.raport-page-petunjuk {
+  width: 944px;
+  min-height: 1250px; /* Menjaga ukuran kertas tetap konsisten */
+  background: white;
+  margin: 0 auto 40px auto;
+  padding: 80px 70px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  text-align: justify;
+}
+
+.title-petunjuk {
+  text-align: center;
+  font-size: 20px;
+  text-decoration: underline;
+  margin-bottom: 25px;
+}
+
+.list-petunjuk {
+  font-size: 16px;
+  line-height: 1.8;
+  padding-left: 20px;
+}
+
+.list-petunjuk li {
+  margin-bottom: 15px;
+}
+
+/* Tabel Nilai Kualitatif */
+.table-kualitatif {
+  width: 70%; /* Dibuat tidak terlalu lebar sesuai gambar */
+  margin: 20px 0;
+  border-collapse: collapse;
+}
+
+.table-kualitatif th, .table-kualitatif td {
+  border: 1px solid #000;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.table-kualitatif th {
+  background: #f9f9f9;
+}
+
+/* Sesuaikan Media Query HP agar halaman baru ini ikut mengecil */
+@media screen and (max-width: 944px) {
+  .raport-page-petunjuk {
+    zoom: 0.38;
+    -moz-transform: scale(0.38);
+    -moz-transform-origin: top center;
+    margin-bottom: 20px;
+  }
+}
+/* Styling Halaman Catatan Terakhir */
+.raport-page-catatan {
+  width: 944px;
+  min-height: 1250px;
+  background: white;
+  margin: 0 auto 40px auto;
+  padding: 80px 60px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+.box-catatan-statis {
+  border: 1px solid #000;
+  padding: 20px;
+  width: 100%;
+}
+
+.title-catatan {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.garis-titik-container {
+  margin-bottom: 20px;
+}
+
+.garis-titik {
+  border-bottom: 1px dotted #000;
+  margin-bottom: 25px;
+  height: 20px;
+}
+
+.footer-ttd-statis {
+  margin-top: 60px;
+  width: 100%;
+}
+
+.tgl-statis {
+  text-align: right;
+  font-size: 14px;
+  margin-bottom: 30px;
+  padding-right: 40px;
+}
+
+.table-ttd-statis {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  border-collapse: collapse;
+}
+
+.table-ttd-statis td {
+  width: 33%;
+  vertical-align: top;
+}
+
+/* Sembunyikan tombol saat print */
+@media print {
+  .no-print {
+    display: none;
+  }
+  .raport-page-catatan {
+    box-shadow: none;
+    page-break-before: always;
+  }
+}
+
+/* Responsif Mobile */
+@media screen and (max-width: 944px) {
+  .raport-page-catatan {
+    zoom: 0.38;
+    -moz-transform: scale(0.38);
+    -moz-transform-origin: top center;
+  }
+}
