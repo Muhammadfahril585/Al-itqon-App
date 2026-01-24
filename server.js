@@ -130,7 +130,7 @@ app.get("/tamu", requireRole("tamu"), (req, res) => {
   res.sendFile(path.join(__dirname, "views", "tamu.html"));
 });
 
-app.get("/raport", requireRole("admin"), (req, res) => {
+app.get("/raport", requireRole("tamu"), (req, res) => {
   res.sendFile(path.join(__dirname, "views", "raport.html"));
 });
 
