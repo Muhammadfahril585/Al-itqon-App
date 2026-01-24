@@ -40,10 +40,9 @@ async function loadRaportByID(id) {
   const wrapper = document.getElementById("raport-result-wrapper");
   const mainMenu = document.getElementById("main-menu");
 
-  // 1. Tampilkan Loading dan Buka Wrapper
   mainMenu.style.display = "none";
-  wrapper.style.display = "block"; // Munculkan pembungkus raport
-  
+  wrapper.style.display = "block";
+
   container.innerHTML = `
     <div class="raport-card" style="text-align:center;">
       <p>⏳ Sedang mengambil data dari Google Sheets...</p>
@@ -51,7 +50,22 @@ async function loadRaportByID(id) {
   `;
 
   try {
-    const response = await fetch(`/api/tahfidz/${id}`);
+    const response = await fetch(`/api/tahfidz/${id}`, {
+      credentials: "same-origin" // ⬅️ PENTING untuk session
+    });
+
+    // ❗ Kalau server redirect (biasanya ke "/")
+    if (response.redirected) {
+      throw new Error("Session berakhir, silakan login ulang.");
+    }
+
+    const contentType = response.headers.get("content-type") || "";
+
+    // ❗ Kalau bukan JSON
+    if (!contentType.includes("application/json")) {
+      throw new Error("Response bukan JSON (kemungkinan redirect / error auth)");
+    }
+
     const result = await response.json();
 
     if (!response.ok) {
@@ -60,7 +74,6 @@ async function loadRaportByID(id) {
 
     const { santri, raport } = result;
 
-    // 2. Render Tampilan
     if (selectedRaportType === "tahfidz") {
       renderTahfidz(container, santri, raport);
     } else {
@@ -75,8 +88,8 @@ async function loadRaportByID(id) {
 
   } catch (error) {
     console.error("Fetch Error:", error);
-    alert("Kesalahan: " + error.message);
-    goBack(); // Jika error, otomatis kembali ke menu utama
+    alert(error.message);
+    goBack();
   }
 }
 
