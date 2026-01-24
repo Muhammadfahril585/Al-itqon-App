@@ -2,7 +2,7 @@ const { google } = require("googleapis");
 
 function getSheetsClient() {
   const auth = new google.auth.GoogleAuth({
-    keyFile: "./secrets/credentials.json",
+    keyFile: "/etc/secrets/credentials.json",
     scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
   });
 
