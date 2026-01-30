@@ -73,18 +73,14 @@ function requireRoleAPI(role) {
    API ROUTES (JSON ONLY)
 ================================ */
 const raportRoutes = require("./routes/raport");
+const kamarRoutes = require("./routes/kamar");
 app.use("/api", (req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   next();
 });
-const raportRoutes = require("./routes/kamar");
-app.use("/api", (req, res, next) => {
-  res.setHeader("Content-Type", "application/json");
-  next();
-});
+app.use('/assets', express.static('assets'));
 app.use("/api", raportRoutes);
 app.use("/api", kamarRoutes);
-app.use('/assets', express.static('assets'));
 /* ===============================
    STATIC FILES & VIEWS
 ================================ */
