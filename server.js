@@ -4,6 +4,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo").default;
 const path = require("path");
 
+
 const app = express();
 app.set("trust proxy", 1);
 const PORT = process.env.PORT || 3000;
@@ -76,8 +77,14 @@ app.use("/api", (req, res, next) => {
   res.setHeader("Content-Type", "application/json");
   next();
 });
+const raportRoutes = require("./routes/kamar");
+app.use("/api", (req, res, next) => {
+  res.setHeader("Content-Type", "application/json");
+  next();
+});
 app.use("/api", raportRoutes);
-
+app.use("/api", kamarRoutes);
+app.use('/assets', express.static('assets'));
 /* ===============================
    STATIC FILES & VIEWS
 ================================ */
@@ -119,18 +126,21 @@ app.post("/login", (req, res) => {
 app.get("/admin", requireRole("admin"), (req, res) =>
   res.sendFile(path.join(__dirname, "views", "admin.html"))
 );
-
 app.get("/pembina", requireRole("pembina"), (req, res) =>
   res.sendFile(path.join(__dirname, "views", "pembina.html"))
 );
-
 app.get("/tamu", requireRole("tamu"), (req, res) =>
   res.sendFile(path.join(__dirname, "views", "tamu.html"))
 );
-
 app.get("/raport", requireRole("tamu"), (req, res) =>
   res.sendFile(path.join(__dirname, "views", "raport.html"))
 );
+app.get('/kamar', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'kamar-list.html'));
+});
+app.get('/kamar/:nama', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'kamar-detail.html'));
+});
 
 // LOGOUT
 app.get("/logout", (req, res) => {
