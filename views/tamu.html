@@ -6,6 +6,7 @@
   <title>Beranda Tamu</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
   <link rel="stylesheet" href="/css/tamu.css" />
 </head>
 <body>
@@ -24,9 +25,17 @@
           <p class="hari" id="current-date">--</p>
           <p class="hijriah" id="hijri-date">--</p>
         </div>
-        <div class="cuaca">☀️</div>
+        <div class="cuaca">
+          <dotlottie-player
+            src="/assets/jam_sholat.json"
+            background="transparent"
+            speed="0.5"
+            style="width: 60px; height: 60px;"
+            loop
+            autoplay>
+          </dotlottie-player>
+        </div>
       </div>
-
       <h1 class="jam" id="live-clock">00:00</h1>
       <p class="info" id="next-prayer-info">Menghitung...</p>
 
@@ -341,8 +350,13 @@
     <div class="nav active" id="nav-beranda" onclick="switchTab('beranda')">
       🏠<span>Beranda</span>
     </div>
-    <div class="nav" id="nav-jadwal" onclick="switchTab('jadwal')">
-      🕌<span>Shalat</span>
+     <div class="nav" id="nav-jadwal" onclick="switchTab('jadwal')">
+    <dotlottie-player
+      src="/assets/masjid.json"                                                               background="transparent"
+      speed="1.5"                                                                             style="width: 28px; height: 28px; margin-bottom: 2px;"
+      loop
+      autoplay>                                                                             </dotlottie-player>
+    <span>Shalat</span>
     </div>
     <div class="nav" id="nav-quran" onclick="switchTab('quran')">
       📅<span>Qur'an</span>
