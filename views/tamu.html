@@ -348,7 +348,15 @@
 
   <nav class="navbar">
     <div class="nav active" id="nav-beranda" onclick="switchTab('beranda')">
-      🏠<span>Beranda</span>
+    <dotlottie-player
+      src="/assets/House.json"
+      background="transparent"
+      speed="1"
+      style="width: 28px; height: 28px; margin-bottom: 2px;"
+      loop
+      autoplay>
+    </dotlottie-player> 
+    <span>Beranda</span>
     </div>
      <div class="nav" id="nav-jadwal" onclick="switchTab('jadwal')">
     <dotlottie-player
@@ -372,9 +380,9 @@
     </dotlottie-player>
       <span>Qur'an</span>
     </div>
-    <div class="nav">
-      ☰<span>Lainnya</span>
-    </div>
+     <div class="nav logout" id="nav-logout" onclick="logout()">
+      🚪<span>Keluar</span>
+     </div>
   </nav>
 
   <script src="/js/wahdahCalculatorRaw.js"></script>
