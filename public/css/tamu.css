@@ -116,20 +116,44 @@ body {
 /* MENU GRID */
 .menu-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  padding: 16px;
+  padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
 }
-
 .menu-item {
   background: white;
-  border-radius: 14px;
-  padding: 16px 8px;
+  border-radius: 15px;
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  aspect-ratio: 1 / 1; /* Membuat kartu kotak sempurna (1:1) */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
-.menu-item p { font-size: 11px; margin-top: 8px; color: #444; font-weight: 500; }
+.menu-item:active {
+  transform: scale(0.95); /* Efek saat ditekan */
+}
+.menu-item p {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #333;
+}
+.menu-item {
+  font-size: 1.8rem; 
+}
+
+/* Khusus untuk yang pakai Lottie Player */
+dotlottie-player {
+  width: 50px !important;
+  height: 50px !important;
+}
 /* ============================= */
 /* DZIKIR & DOA MAIN STYLES      */
 /* ============================= */
